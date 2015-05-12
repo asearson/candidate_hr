@@ -6,7 +6,8 @@
       'Joan of Arc' as name,
       'Executive' as department,
       35000 as salary,
-      2008 as hired_year
+      2008 as hired_year,
+      'F' as gender
       
       union all
       
@@ -15,7 +16,8 @@
       'Winston Churchill' as name,
       'Executive' as department,
       25000 as salary,
-      2009 as hired_year
+      2009 as hired_year,
+      'M' as gender
       
       union all
       
@@ -24,7 +26,8 @@
       'Karl Marx' as name,
       'Finance' as department,
       25000 as salary,
-      2009 as hired_year
+      2009 as hired_year,
+      'M' as gender
       
       union all
       
@@ -33,7 +36,8 @@
       'Mother Teresa' as name,
       'HR' as department,
       16000 as salary,
-      2010 as hired_year
+      2010 as hired_year,
+      'F' as gender
       
       union all
       
@@ -42,7 +46,8 @@
       'Barbra Streisand' as name,
       'Sales' as department,
       16000 as salary,
-      2010 as hired_year
+      2010 as hired_year,
+      'F' as gender
       
       union all
       
@@ -51,7 +56,8 @@
       'Elvis Presley' as name,
       'Sales' as department,
       8000 as salary,
-      2012 as hired_year
+      2012 as hired_year,
+      'M' as gender
       
       union all
       
@@ -60,7 +66,8 @@
       'Katy Perry' as name,
       'Analytics' as department,
       8000 as salary,
-      2012 as hired_year
+      2012 as hired_year,
+      'F' as gender
       
       union all
       
@@ -69,7 +76,8 @@
       'Justin Bieber' as name,
       'Analytics' as department,
       8000 as salary,
-      2012 as hired_year
+      2012 as hired_year,
+      'M' as gender
 
   fields:
 
@@ -86,14 +94,17 @@
 
   - dimension: salary
     type: number
-    sql: ${TABLE}.salary
+    sql: coalesce(${TABLE}.salary,0)
     value_format: '$#,##0'
+    
+  - dimension: gender
+    sql: ${TABLE}.gender
 
   - dimension: hired_year
     sql: ${TABLE}.hired_year
     
   - dimension: years_employed
-    sql: cast(extract(year from current_date) - ${hired_year} as decimal)
+    sql: coalesce(cast(extract(year from current_date) - ${hired_year} as decimal),0)
     
 ##  MEASURES  ##
     
