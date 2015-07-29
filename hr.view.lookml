@@ -1,4 +1,4 @@
-- view: hr
+- view: hr_looker_training_set
   derived_table:
     sql: |
       select
